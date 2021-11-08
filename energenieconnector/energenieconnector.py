@@ -2,6 +2,7 @@ import requests
 import sys
 import re
 
+
 class EnergenieConnector:
 
     def __init__(self, baseurl, pwd):

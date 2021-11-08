@@ -5,6 +5,7 @@ import argparse
 import sys
 from energenieconnector import EnergenieConnector
 
+
 # Parse command line arguments
 def getargs():
     parser = argparse.ArgumentParser()
@@ -34,9 +35,8 @@ def run(args):
     return 0
 
 
-# Parse arguments and run main function
-if __name__ == "__main__":
+# Parse arguments and run cli function
+def cli():
     shellargs = getargs()
     result = run(shellargs)
     sys.exit(result)
-

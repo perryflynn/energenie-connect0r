@@ -1,12 +1,12 @@
 Control your [Energenie EG-PMS-LAN](https://energenie.com/item.aspx?id=6668) with python.
 
-## geniecli.py CLI
+## geniecli CLI
 
 **Usage:**
 
 ```
-~/energenie-connect0r$ ./geniecli.py --help
-usage: geniecli.py [-h] [--status] [--nologout] [--toggle {1,2,3,4}]
+geniecli --help
+usage: geniecli [-h] [--status] [--nologout] [--toggle {1,2,3,4}]
                    [--on {1,2,3,4}] [--off {1,2,3,4}] [--restart {1,2,3,4}]
                    [--restartdelaysec RESTARTDELAYSEC]
                    http://192.168.2.5 pwd
@@ -30,21 +30,21 @@ optional arguments:
 **Get device status in JSON format:**
 
 ```
-~/energenie-connect0r$ ./geniecli.py http://192.168.2.5 passw0rd --status
+geniecli http://192.168.2.5 passw0rd --status
 {"status": true, "data": {"sockets": [1, 0, 1, 1]}, "message": null}
 ```
 
 **Switch socket with `--on` or `--off`:**
 
 ```
-~/energenie-connect0r$ ./geniecli.py http://192.168.2.5 passw0rd --on 2
+geniecli http://192.168.2.5 passw0rd --on 2
 {"status": true, "message": "State of socket 2 changed", "data": {"sockets": [1, 1, 1, 1]}}
 ```
 
 **Toggle socket (if on then off; if off then on):**
 
 ```
-~/energenie-connect0r$ ./geniecli.py http://192.168.2.5 passw0rd --toggle 2
+geniecli http://192.168.2.5 passw0rd --toggle 2
 {"status": true, "message": "State of socket 2 changed to 0", "data": {"sockets": [1, 0, 1, 1]}}
 ```
 
@@ -55,7 +55,7 @@ optional arguments:
 - Switch socket on
 
 ```
-~/energenie-connect0r$ ./geniecli.py http://192.168.2.5 passw0rd --restart 2 --restartdelaysec 3
+geniecli http://192.168.2.5 passw0rd --restart 2 --restartdelaysec 3
 {"data": {"sockets": [1, 1, 1, 1]}, "message": "Socket 2 restarted", "status": true}
 ```
 
@@ -69,22 +69,22 @@ you can use the `--nologout` option to prevent collisions.
 #!/bin/bash
 
 # execute two commands parallel
-./geniecli.py http://192.168.2.7 "" --toggle 3 --nologout &
-./geniecli.py http://192.168.2.7 "" --toggle 4 --nologout &
+geniecli http://192.168.2.7 "" --toggle 3 --nologout &
+geniecli http://192.168.2.7 "" --toggle 4 --nologout &
 
 # wait for both to finish
 wait
 
 # logout
-./geniecli.py http://192.168.2.7 "" --logout
+geniecli http://192.168.2.7 "" --logout
 ```
 
-## geniemassstatus.py CLI
+## geniemassstatus CLI
 
 Fetch the socket status from multiple energenie devices:
 
 ```
-~/energenie-connect0r$ ./geniemassstatus.py --host http://192.168.2.5 --pwd passw0rd --host http://192.168.2.7 --pwd passw0rd
+geniemassstatus --host http://192.168.2.5 --pwd passw0rd --host http://192.168.2.7 --pwd passw0rd
 {"http://192.168.2.7": [1, 1, 1, 0], "http://192.168.2.5": [1, 1, 1, 1]}
 ```
 
@@ -107,7 +107,7 @@ status = eg.getstatus()
 # 3 = Unknown login result
 
 # Login if not logged in and get status again
-if status['login']==1:
+if status['login'] == 1:
     if eg.login():
         status = eg.getstatus()
 
@@ -120,7 +120,7 @@ print(status)
 eg.changesocket(2, 1)
 
 # Logout
-if status['login']==0:
-   eg.logout()
+if status['login'] == 0:
+    eg.logout()
 ```
 
