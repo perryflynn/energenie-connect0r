@@ -40,3 +40,8 @@ def cli():
     shellargs = getargs()
     result = run(shellargs)
     sys.exit(result)
+
+
+if __name__ == "__main__":
+    cli()
+
